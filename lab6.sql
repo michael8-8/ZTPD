@@ -1,19 +1,19 @@
 -- 1A
 
-select lpad('-',2*(level-1),'|-') || t.owner||'.'||t.type_name||' (FINAL:'||t.final||
-', INSTANTIABLE:'||t.instantiable||', ATTRIBUTES:'||t.attributes||', METHODS:'||t.methods||')'
-from all_types t
-start with t.type_name = 'ST_GEOMETRY'
-connect by prior t.type_name = t.supertype_name
-and prior t.owner = t.owner;
+SELECT lpad('-',2*(level-1),'|-') || t.owner||'.'||t.type_name||' (FINAL:'||t.final||', 
+INSTANTIABLE:'||t.instantiable||', ATTRIBUTES:'||t.attributes||', METHODS:'||t.methods||')'
+FROM all_types t
+START WITH t.type_name = 'ST_GEOMETRY'
+CONNECT BY PRIOR t.type_name = t.supertype_name
+AND PRIOR t.owner = t.owner;
 
 -- 1B
 
-select distinct m.method_name
-from all_type_methods m
-where m.type_name like 'ST_POLYGON'
-and m.owner = 'MDSYS'
-order by 1;
+SELECT DISTINCT m.method_name
+FROM all_type_methods m
+WHERE m.type_name LIKE 'ST_POLYGON'
+AND m.owner = 'MDSYS'
+ORDER BY 1;
 
 -- 1C
 
